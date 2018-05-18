@@ -36,9 +36,9 @@
                         <td>{{this.sex}}</td>
                         <td>{{this.phone}}</td>
                         <td>
-                            <a href="/studentmanager/edit/595b52b807ac9e989149adcc" class ="btn btn-success" >编辑</a> | 
+                            <a href="/student/edit/{{this._id}} " class ="btn btn-success">编辑</a> 
 
-                            <input onclick="deleteStudent('595b52b807ac9e989149adcc')" type="button" class ="btn btn-danger"  value="删除">
+                            <input onclick="deleteStudent('{{this._id}}')" type="button" class ="btn btn-danger"  value="删除">
                         </td>
                     </tr>
                     {{/each}}
@@ -48,6 +48,13 @@
     
                             window.location.href='/student/list?keyword='+keyword;
                         }
+                        function deleteStudent(_id) {
+                    
+                                if (confirm("确定要删除吗?")) {
+                                    window.location.href = '/student/delete/' + _id
+                                }
+                            }
+                        
                     </script>
                 
             </tbody>

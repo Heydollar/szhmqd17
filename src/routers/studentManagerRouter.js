@@ -11,7 +11,12 @@ studentManagerRouter.get('/list',studentManagerController.getStudentListPage)
 studentManagerRouter.get('/add',studentManagerController.addStudentPage)
 //处理添加学生的请求
 studentManagerRouter.post('/add',studentManagerController.addStudent)
-
+//处理获取编辑页面的请求
+studentManagerRouter.get('/edit/:studentId',studentManagerController.getEditStudentPage)
+//处理修改学生信息的请求
+studentManagerRouter.post('/edit/:studentId',studentManagerController.editStudent)
+//处理删除学生信息的请求
+studentManagerRouter.get('/delete/:studentId',studentManagerController.deleteStudent)
 
 
 

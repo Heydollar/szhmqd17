@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>欢迎注册</title>
-  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/lib/bootstrap/css/bootstrap.min.css">
   <script type="text/javascript" src="/js/jquery.min.js"></script>
   <script type="text/javascript" src="/js/md5.js"></script>
 </head>
@@ -39,4 +39,29 @@
     </div>
     
 </body>
+<script>
+        function register(){
+            //请求的url
+            var url='/account/register';
+            //使用MD5加密密码
+            var password=$.md5($('#passwordId').val()+'hmqd17')
+            $.post(url,{
+                username:$('#usernameId').val(),
+                password:password},
+                function(data,status){
+                //注册失败
+                if(data.status!=0){
+                    alert(data.message)
+                }
+                else{
+                    //注册成功,跳转到登录页面
+                    window.location.href='/account/login'
+                }
+    
+            })
+        }
+    
+    
+    </script>
 </html>
+

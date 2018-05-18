@@ -11,6 +11,10 @@ accountRouter.get('/login',accountController.getLoginPage)
 accountRouter.get('/vcode',accountController.getVocode)
 //处理浏览器的注册页面请求
 accountRouter.get('/register',accountController.getRegisterPage)
+//处理浏览器的注册用户的请求(注册请求需要向服务器传递用户输入的参数,并且希望参数是不可见的,因此用post请求)
+accountRouter.post('/register',accountController.register)
+//处理浏览器用户登录的请求(登录请求需要向服务器传递用户输入的参数,并且希望参数是不可见的,因此用post请求)
+accountRouter.post('/login',accountController.register)
 //导出路由
 module.exports=accountRouter
 

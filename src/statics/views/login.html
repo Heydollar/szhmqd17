@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
     <script src="/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/md5.js"></script>
     <title>登录页面</title>
 </head>
 <body>
@@ -56,7 +57,35 @@
     })
     //点击跳到注册页面
   function register(){
-      window.location.href='/account/register.html'
+      window.location.href='/account/register'
+  }
+  function login(){
+     //请求的url
+      var url = '/account/login';
+      //使用MD5加密密码
+      var password = $.md5($('#passwordId').val() + 'hmqd17')
+      var vcode = $('#vcodeId').val()
+     
+      
+      $.post(url, {
+          username: $('#usernameId').val(),
+          password: password,
+          vcode:vcode
+      },
+          function (data, status) {
+              //登录失败
+              if (data.status != 0) {
+                  alert(data.messages)
+                  //登录失败后也要刷新验证码
+                  $("#vcodeimg").attr('src','/account/vcode?id='+Math.random())
+              }
+              else {
+                  //登录成功,跳转到学生管理系统页面
+                  window.location.href = '/studentManager/list'
+              }
+
+          }) 
+
   }
 </script>
 </html>

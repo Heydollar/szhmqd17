@@ -13,6 +13,24 @@ app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 10*60000 }}))
 app.use(express.static(path.join(__dirname,'./statics')));
 //利用body-parser中间件处理post请求
 app.use(bodyParser.urlencoded({ extended: false }))
+/**
+ * all代表包含所有的方法 ，比如GET/POST/PUT/DELETE
+ * * 是代表所有的url
+ * 
+ * next 控制你是否能继续访问，如果调用了，就能访问，如果没有调用，就不能再往下走了
+ */
+app.all("*",(req,res,next)=>{
+    if(req.url.includes("student")){
+        if(req.session.loginedName){//登陆了
+            next()
+        }else{
+            res.send("<script>alert('请先登录!');window.location='/account/login'</script>")
+        }
+    }else{//除开学生管理
+        next()
+    }
+})
+
 
 //导入路由,对浏览器的请求分开处理请求
 const accountRouter=require(path.join(__dirname,'./routers/accountRouters'))

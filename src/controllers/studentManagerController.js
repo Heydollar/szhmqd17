@@ -14,6 +14,7 @@ exports.getStudentListPage = (req, res) => {
             xtpl.renderFile(path.join(__dirname,'../statics/views/list.html'),{
                 students:docs,
                 keyword,
+                loginedName:req.session.loginedName
             },function(error,content){
                 res.send(content)
              
@@ -27,6 +28,7 @@ exports.getStudentListPage = (req, res) => {
 exports.addStudentPage=(req,res)=>{
     //利用xtpl渲染页面
     xtpl.renderFile(path.join(__dirname,'../statics/views/add.html'),{
+        loginedName:req.session.loginedName
        
     },function(error,content){
         res.send(content)
@@ -51,7 +53,8 @@ exports.getEditStudentPage = (req,res)=>{
 
     databasetool.getOne("studentInfo",{_id:studentId},(err,doc)=>{
         xtpl.renderFile(path.join(__dirname,"../statics/views/edit.html"),{
-            studentInfo:doc   
+            studentInfo:doc,
+            loginedName:req.session.loginedName  
         },(err,content)=>{
             res.send(content)
         })
@@ -84,6 +87,11 @@ exports.deleteStudent=(req,res)=>{
         }   
     })
 
+}
+//退出登录
+exports.logout=(req,res)=>{
+    req.session.loginedName=""
+    
 }
 
 

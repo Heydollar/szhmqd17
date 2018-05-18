@@ -1,6 +1,7 @@
 
 const path=require('path')
 var xtpl = require('xtpl');
+const express=require('express')
 //导入database.tool模块
 const databasetool=require(path.join(__dirname,'../tools/databasetool'))
 
@@ -24,10 +25,6 @@ exports.getStudentListPage = (req, res) => {
 
     }
    
-
-
-
-
 //暴露一个获取添加学生页面的方法
 exports.addStudentPage=(req,res)=>{
     //利用xtpl渲染页面
@@ -38,21 +35,16 @@ exports.addStudentPage=(req,res)=>{
     })
     
 }
-
 //暴露一个添加学生的方法
 exports.addStudent=(req,res)=>{
-    MongoClient.connect(url, function (err, client) {
-        const db = client.db(dbName);
-        const collection = db.collection('studentInfo');
+    databasetool.addOne('studentInfo',req.body,(err,docs)=>{
+        if(err){   
+            res.send("<script>alert('添加失败')</script>")
+         }
+         
+        res.send("<script>window.location.href='/student/list'</script>")
+        
 
-        // 新增学生
-        collection.insertOne(req.body,(err, docs)=> {
-             
-            client.close();  
-            res.send("<script>window.location.href='/student/list'</script>")
     });
-  
-   
-  
-})
 }
+

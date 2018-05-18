@@ -21,3 +21,18 @@ exports.getList = (collectionName,paramas,callback) => {
      
     });
 }
+
+//暴露一个添加学生的方法
+exports.addOne= (collectionName,paramas,callback) => {
+    MongoClient.connect(url, function (err, client) {
+        const db = client.db(dbName)
+        const collection = db.collection(collectionName);
+        // 添加一个学生
+         // 新增学生
+         collection.insertOne(paramas,(err, docs)=> {
+             client.close()
+             callback(err,docs)
+    });
+    
+    });
+}
